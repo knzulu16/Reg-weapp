@@ -1,0 +1,14 @@
+body{
+  background-color: #433246;
+}
+li{
+
+    border: 5px solid;
+      padding: 10px;
+      background: yellow;
+      border-radius:30%;
+      float: left;
+      list-style: none;
+
+
+}
