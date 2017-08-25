@@ -1,10 +1,11 @@
 {
-  "name": "Reg-webapp",
+  "name": "reg-webapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "node"
+             
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,13 @@
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/knzulu16/Reg-weapp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/knzulu16/Reg-weapp/issues"
+  },
+  "homepage": "https://github.com/knzulu16/Reg-weapp#readme"
 }
