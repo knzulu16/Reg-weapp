@@ -1,24 +1,26 @@
+<div class="container-fluid">
 <form action='/reg_number'  method='post'>
-  <input type="text" name="reg_num" placeholder="Enter Registration Number" ></input>
-  <button type="submit" name="" value="regnum">Add</button>
+  <input type="text" class="form-control"  name="reg_num" id="reg_num" placeholder="Enter Registration Number" ></input>
+<br></br>
+  <button type="submit" class="btn btn-success" name="" value="regnum">Add</button>
 <br></br>
 <div class='error'>
   {{messages.error}}
 </div>
-
-  <input class='rad1' type='radio' name='Registration' value='Malmesbury'>Malmesbury</input>
-  <input class='rad2' type='radio' name='Registration' value='Bellville'>Bellville</input>
-  <input  class='rad3' type='radio' name='Registration' value='Cape Town'>Cape Town</input>
+  <input class='rad1' type='radio' name='inlineRadioOptions' value='Malmesbury'>Malmesbury</input>
+  <input class='rad2' type='radio' name='inlineRadioOptions' value='Bellville'>Bellville</input>
+  <input  class='rad3' type='radio' name='inlineRadioOptions' value='Cape Town'>Cape Town</input>
   <br></br>
- <button type="submit" name="" value="RegCities">Filter</button>
+ <button type="submit" name="" class=" btn btn-primary" value="RegCities">Filter</button>
+
+<br></br>
 
 
-
+ <ul>
+   {{#each regnumbers}}
+   <li>{{this}}</li>
+   {{/each}}
+ </ul>
 
 </form>
-
-<ul>
-  {{#each regnumbers}}
-    <li>{{this}}</li>
-  {{/each}}
-</ul>
+</div>
