@@ -1,37 +1,96 @@
 "use strict"
-
 var express = require('express');
 var app = express();
 var exphbs = require('express-handlebars');
+var session = require('express-session');
 var bodyParser = require('body-parser');
-var Regnumbers=[];
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main'
+}));
+
 app.set('view engine', 'handlebars');
 // parse application/x-www-form-urlencoded
 
-app.use(bodyParser.urlencoded({ extended: false }))
-
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
+var models = require('./models');
+app.use(session({
+  secret: 'keyboard cat',
+  cookie: {
+    maxAge: 60000 * 30
+  }
+}));
 // parse application/json
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main'
+}));
+
+app.set('view engine', 'handlebars');
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 app.use(express.static(__dirname + '/public'));
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
+var Regnumbers = [];
+var regObj = {};
+
+function storeData(regParam, cb) {
+
+  // if the reg number does not exist(undefined) in the object (regObj = {});
+  // push to the array (Regnumbers = []) and store to the object
+
+  // else do not store the reg number
+
+  if (regObj[regParam] === undefined) {
+    Regnumbers.push(regParam);
+    regObj[regParam] = 1;
+    models.create({
+      reg_num: regParam
+    }, function(err, result) {
+      if (err) {
+        cb(null, {
+          err
+        });
+      } else {
+        cb(null, {
+          result
+        });
+      }
+    });
+  } else {
+    cb(null, {
+      regParam
+    });
+  }
+}
 app.get('/', function(req, res) {
-  res.render('index.text.handlebars');
+  res.render('index.handlebars');
 });
 
-app.post('/reg_number', function(req, res){
-  var reg_number=req.body.reg_num;
-  var TownReg=req.body.Registration;
-  Regnumbers.push(reg_number);
+app.get('/', function(req, res) {
 
+  res.redirect('index.handlebars');
+});
 
+app.post('/reg_number', function(req, res) {
+  var reg_number = req.body.reg_num;
+  var TownReg = req.body.Registration;
 
-  res.render('index.text.handlebars',{
-    regnumbers:Regnumbers
-
+  storeData(reg_number, function(err, result) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(result);
+      res.render('index', {
+        regnumbers: Regnumbers
+      });
+    }
   });
+
 
 });
 
@@ -50,13 +109,12 @@ app.post('/reg_number', function(req, res){
 // });
 ///
 //start the server
-var port = process.env.PORT || 3000;
+app.use(function(err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send(err.stack)
+})
 
-var server = app.listen(port, function () {
-
- var host = server.address().address;
- var port = server.address().port;
-
- console.log('Example app listening at http://%s:%s', host, port);
-
+const port = process.env.PORT || 3000;
+app.listen(port, function() {
+  console.log('web app started on port:' + port);
 });
