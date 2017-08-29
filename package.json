@@ -17,6 +17,7 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.5",
     "mongoose": "^4.11.8",
+    "mongoose-regexp": "0.0.1",
     "view-engine-handlebars": "^1.0.3"
   },
   "devDependencies": {

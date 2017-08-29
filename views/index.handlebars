@@ -1,26 +1,26 @@
 <div class="container-fluid">
-<form action='/reg_number'  method='post'>
-  <input type="text" class="form-control"  name="reg_num" id="reg_num" placeholder="Enter Registration Number" ></input>
-<br></br>
-  <button type="submit" class="btn btn-success" name="" value="regnum">Add</button>
-<br></br>
-<div class='error'>
-  {{messages.error}}
-</div>
-  <input class='rad1' type='radio' name='inlineRadioOptions' value='Malmesbury'>Malmesbury</input>
-  <input class='rad2' type='radio' name='inlineRadioOptions' value='Bellville'>Bellville</input>
-  <input  class='rad3' type='radio' name='inlineRadioOptions' value='Cape Town'>Cape Town</input>
-  <br></br>
- <button type="submit" name="" class=" btn btn-primary" value="RegCities">Filter</button>
+  <form action='/reg_number' method='post'>
+    <input type="text" class="form-control" name="reg_num" id="reg_num" placeholder="Enter Registration Number"></input>
+    <br></br>
+    <button type="submit" class="btn btn-success" name="" value="regnum">Add</button>
+  </form>
+  <form  class="form2" action="/filter" method="post"  >
+    <input class='rad1' type='radio' name='filterForTown' value=''>All</input>
+    <input class='rad1' type='radio' name='filterForTown' value='CK'>Malmesbury</input>
+    <input class='rad2' type='radio' name='filterForTown' value='CY'>Bellville</input>
+    <input class='rad3' type='radio' name='filterForTown' value='CA'>Cape Town</input>
+    <br></br>
+    <button type="submit" name="" class=" btn btn-primary" value="RegCities">Filter</button>
 
-<br></br>
+    <br></br>
+    <ul>
+      {{#each regnumbers}}
+        <li>{{this.reg_num}}</li>
+      {{/each}}
+    </ul>
 
-
- <ul>
-   {{#each regnumbers}}
-   <li>{{this}}</li>
-   {{/each}}
- </ul>
-
-</form>
+  </form>
+  <div class='error'>
+    {{messages.error}}
+  </div>
 </div>

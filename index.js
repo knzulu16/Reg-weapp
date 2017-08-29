@@ -14,7 +14,10 @@ app.set('view engine', 'handlebars');
 app.use(bodyParser.urlencoded({
   extended: false
 }))
+
 var models = require('./models');
+var RegNumber = models;
+
 app.use(session({
   secret: 'keyboard cat',
   cookie: {
@@ -48,7 +51,7 @@ function storeData(regParam, cb) {
   if (regObj[regParam] === undefined) {
     Regnumbers.push(regParam);
     regObj[regParam] = 1;
-    models.create({
+    RegNumber.create({
       reg_num: regParam
     }, function(err, result) {
       if (err) {
@@ -68,7 +71,17 @@ function storeData(regParam, cb) {
   }
 }
 app.get('/', function(req, res) {
-  res.render('index.handlebars');
+
+  //console.log(models);
+
+  RegNumber.find({}, function(err, regnumbers){
+    console.log(regnumbers);
+    res.render('index', {
+      regnumbers
+    });
+    //res.render('index.handlebars');
+  });
+
 });
 
 app.get('/', function(req, res) {
@@ -78,16 +91,13 @@ app.get('/', function(req, res) {
 
 app.post('/reg_number', function(req, res) {
   var reg_number = req.body.reg_num;
-  var TownReg = req.body.Registration;
 
   storeData(reg_number, function(err, result) {
     if (err) {
       console.log(err);
     } else {
       console.log(result);
-      res.render('index', {
-        regnumbers: Regnumbers
-      });
+      res.redirect('/');
     }
   });
 
@@ -96,10 +106,28 @@ app.post('/reg_number', function(req, res) {
 
 
 
+app.post('/filter', function(req, res) {
+  var townReg = req.body.filterForTown;
+  //console.log(req.body);
 
-// app.get('/', function(req, res){
-//     res.send("Here it is:CA 456");
-// });
+  RegNumber.find({
+      reg_num: {
+        "$regex": '.*' + townReg + '.*'
+      }
+    }, function(err, regPlates) {
+
+      if (err) {
+        console.log(err);
+      } else {
+        res.render('index', {
+          regnumbers: regPlates
+      });
+      }
+
+    });
+
+});
+
 //
 //
 //
@@ -108,6 +136,7 @@ app.post('/reg_number', function(req, res) {
 //   res.send("you sent me : " + req.params.num);
 // });
 ///
+
 //start the server
 app.use(function(err, req, res, next) {
   console.error(err.stack)
