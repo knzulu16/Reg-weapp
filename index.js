@@ -4,10 +4,11 @@ var app = express();
 var exphbs = require('express-handlebars');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var flash = require('express-flash');
 app.engine('handlebars', exphbs({
   defaultLayout: 'main'
 }));
-
+app.use(flash());
 app.set('view engine', 'handlebars');
 // parse application/x-www-form-urlencoded
 
@@ -48,6 +49,7 @@ function storeData(regParam, cb) {
 
   // else do not store the reg number
 
+
   if (regObj[regParam] === undefined) {
     Regnumbers.push(regParam);
     regObj[regParam] = 1;
@@ -69,6 +71,7 @@ function storeData(regParam, cb) {
       regParam
     });
   }
+
 }
 app.get('/', function(req, res) {
 
@@ -91,7 +94,12 @@ app.get('/', function(req, res) {
 
 app.post('/reg_number', function(req, res) {
   var reg_number = req.body.reg_num;
+  if(!reg_number){
+    req.flash('error', "No Registration number entered");
+    res.redirect('/');
+  }
 
+  else{
   storeData(reg_number, function(err, result) {
     if (err) {
       console.log(err);
@@ -100,7 +108,7 @@ app.post('/reg_number', function(req, res) {
       res.redirect('/');
     }
   });
-
+}
 
 });
 

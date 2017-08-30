@@ -1,6 +1,10 @@
 <div class="container-fluid">
   <form action='/reg_number' method='post'>
     <input type="text" class="form-control" name="reg_num" id="reg_num" placeholder="Enter Registration Number"></input>
+    <div class='error'>
+      {{messages.error}}
+    </div>
+
     <br></br>
     <button type="submit" class="btn btn-success" name="" value="regnum">Add</button>
   </form>
@@ -20,7 +24,4 @@
     </ul>
 
   </form>
-  <div class='error'>
-    {{messages.error}}
-  </div>
 </div>

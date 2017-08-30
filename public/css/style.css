@@ -12,6 +12,10 @@ li{
 
 
 }
+.error{
+  color:red;
+}
+
 #reg_num {
   width: 30%;
 }
