@@ -128,12 +128,25 @@ app.post('/filter', function(req, res) {
         console.log(err);
       } else {
         res.render('index', {
+
+
+
           regnumbers: regPlates
       });
       }
 
     });
 
+});
+
+app.get('/Reset', function(req, res) {
+  RegNumber.remove({}, function(err, remove) {
+    if (err) {
+      return err;
+    }
+
+    res.redirect('/');
+  })
 });
 
 //
