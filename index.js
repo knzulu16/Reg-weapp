@@ -12,10 +12,10 @@ app.engine('handlebars', handlebars({
   extname: 'handlebars',
   defaultLayout: 'main'
 }));
+app.set('view engine', 'handlebars');
 
 
 app.use(flash());
-app.set('view engine', 'handlebars');
 // parse application/x-www-form-urlencoded
 
 app.use(bodyParser.urlencoded({
@@ -32,11 +32,8 @@ app.use(session({
   }
 }));
 // parse application/json
-app.engine('handlebars', exphbs({
-  defaultLayout: 'main'
-}));
 
-app.set('view engine', 'handlebars');
+
 app.use(bodyParser.urlencoded({
   extended: false
 }));
