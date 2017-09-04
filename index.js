@@ -1,13 +1,19 @@
 "use strict"
 var express = require('express');
 var app = express();
-var exphbs = require('express-handlebars');
+var handlebars = require('express-handlebars');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var flash = require('express-flash');
-app.engine('handlebars', exphbs({
+
+
+
+app.engine('handlebars', handlebars({
+  extname: 'handlebars',
   defaultLayout: 'main'
 }));
+
+
 app.use(flash());
 app.set('view engine', 'handlebars');
 // parse application/x-www-form-urlencoded
