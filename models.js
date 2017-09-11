@@ -17,7 +17,7 @@ mongoose.connect(mongoURL, {
   if (err) {
     console.log('error connection');
   } else {
-    console.log('database connection success');
+    console.log('database connection suoccess');
   }
 });
 
