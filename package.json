@@ -1,10 +1,14 @@
+
+
+
 {
   "name": "reg-webapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -32,8 +36,9 @@
   "bugs": {
     "url": "https://github.com/knzulu16/Reg-weapp/issues"
   },
-  "homepage": "https://github.com/knzulu16/Reg-weapp#readme"
-}
+  "homepage": "https://github.com/knzulu16/Reg-weapp#readme",
+
 "engines": {
     "node": "4.1.1"
-  }
+  },
+}
