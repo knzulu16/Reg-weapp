@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -34,3 +34,6 @@
   },
   "homepage": "https://github.com/knzulu16/Reg-weapp#readme"
 }
+"engines": {
+    "node": "4.1.1"
+  }
